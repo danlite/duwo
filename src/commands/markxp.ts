@@ -54,7 +54,7 @@ export const markXp = async (
   message: ServerMessage,
   amount?: number,
 ): Promise<void> => {
-  const userRef = databaseUserForMessage(message)
+  const userRef = await databaseUserForMessage(message)
   if (amount === undefined) amount = 1
 
   let character = await activeCharacterForUser(message)

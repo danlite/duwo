@@ -12,7 +12,7 @@ ${code('dw help')}
 ${code('dw createchar <NAME> <CLASS> <STATS>')}
 > Create a character with the given name, class, and slash-separated ability scores (str/dex/con/int/wis/cha)
 > **NOTE:** If you already have a character with the given name, this will overwrite that existing character.
-> e.g. ${code('dw savechar Sigurd cleric 16/8/12/13/15/9')}
+> e.g. ${code('dw createchar Sigurd cleric 16/8/12/13/15/9')}
 
 ${code('dw active')}
 > Show your active character

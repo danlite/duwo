@@ -23,14 +23,14 @@ export const activeCharacter: ServerCommandHandler = async (args, message) => {
     const charName = args.shift()
     if (!charName) return
 
-    const userRef = databaseUserForMessage(message)
+    const userRef = await databaseUserForMessage(message)
 
     let char: Character
     try {
       char = await characterForUser(userRef, charName)
     } catch (e) {
       message.channel.send(
-        `❌ no character named **${charName}** (try \`savechar\` first)`,
+        `❌ no character named **${charName}** (try \`dw createchar\` first)`,
       )
       return
     }

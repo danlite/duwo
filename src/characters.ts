@@ -161,13 +161,21 @@ export const updateCharacterForUser = async (
   return characterForUser(user, characterName)
 }
 
+export const userHasActiveCharacter = async (
+  message: ServerMessage,
+): Promise<boolean> => {
+  const userRef = await databaseUserForMessage(message)
+  const userSnapshot = await userRef.get()
+
+  return Boolean((await userSnapshot.data())?.activeCharacterName)
+}
+
 export const activeCharacterForUser = async (
   message: ServerMessage,
 ): Promise<Character> => {
   try {
-    const userRef = databaseUserForMessage(message)
+    const userRef = await databaseUserForMessage(message)
     const userSnapshot = await userRef.get()
-    if (!userSnapshot.exists) throw Error()
 
     const activeCharName: string = (await userSnapshot.data())
       ?.activeCharacterName

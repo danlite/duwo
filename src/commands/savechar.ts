@@ -4,6 +4,7 @@ import {
   CharacterStats,
   ORDERED_STAT_IDS,
   createCharacterForUser,
+  userHasActiveCharacter,
 } from '../characters'
 import {databaseUserForMessage, characterDescription} from '../utils'
 
@@ -37,7 +38,7 @@ export const createCharacter: ServerCommandHandler = async (args, message) => {
   if (!statString) return
   const charStats = statsFromString(statString)
 
-  const dbUser = databaseUserForMessage(message)
+  const dbUser = await databaseUserForMessage(message)
 
   const character = await createCharacterForUser(
     dbUser,
@@ -45,6 +46,10 @@ export const createCharacter: ServerCommandHandler = async (args, message) => {
     charClass,
     charStats,
   )
+
+  if (!(await userHasActiveCharacter(message))) {
+    dbUser.update({activeCharacterName: charName})
+  }
 
   message.channel.send(`Saved!\n${characterDescription(character)}`)
 }

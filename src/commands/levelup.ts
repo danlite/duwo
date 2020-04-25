@@ -11,7 +11,7 @@ export const levelUp = async (
   message: ServerMessage,
   ability: string,
 ): Promise<void> => {
-  const userRef = databaseUserForMessage(message)
+  const userRef = await databaseUserForMessage(message)
 
   let character = await activeCharacterForUser(message)
   if (!character) return

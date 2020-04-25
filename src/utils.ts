@@ -23,14 +23,22 @@ export const asServerMessage = (message: Message): ServerMessage => {
   throw Error('missing member/guild')
 }
 
-export const databaseUserForMessage = (
+export const databaseUserForMessage = async (
   message: ServerMessage,
-): firestore.DocumentReference => {
-  return db
+): Promise<firestore.DocumentReference> => {
+  const ref = db
     .collection('servers')
     .doc(message.guild.id)
     .collection('users')
     .doc(message.author.id)
+
+  try {
+    await ref.create({})
+  } catch (e) {
+    // already exists
+  }
+
+  return ref
 }
 
 export const formatModifierValue = (n: number, asMath?: boolean): string => {
