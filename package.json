@@ -13,7 +13,7 @@
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
     "firebase": "^7.14.1",
-    "firebase-admin": "^8.10.0",
+    "firebase-admin": "^11.4.1",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
